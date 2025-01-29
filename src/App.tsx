@@ -47,9 +47,14 @@ function App() {
   // };
 
   const sendPushNotification = () => {
+    const notification = new Notification('Привет!', {
+      body: 'Это ваше пуш-уведомление 1',
+      icon: '/icon512_rounded.png',  
+    });
+    console.log(notification)
     setTimeout(() => { 
       const notification = new Notification('Привет!', {
-        body: 'Это ваше пуш-уведомление.',
+        body: 'Это ваше пуш-уведомление 2',
         icon: '/icon512_rounded.png',  
       });
       console.log(notification)
