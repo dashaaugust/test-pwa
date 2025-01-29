@@ -1,54 +1,45 @@
-import { useEffect, useState } from 'react' 
+import { FC, useEffect, useState } from 'react'
 import './App.css'
 
-function App() {
+const App: FC = () => {
   const [count, setCount] = useState(0)
-
-  
-
-  // const sendPushNotification = () => {
-  //   const notification = new Notification('Привет!', {
-  //     body: 'Это ваше пуш-уведомление 1',
-  //     icon: '/icon512_rounded.png',  
-  //   });
-  //   console.log(notification)
-  //   setTimeout(() => { 
-  //     const notification = new Notification('Привет!', {
-  //       body: 'Это ваше пуш-уведомление 2',
-  //       icon: '/icon512_rounded.png',  
-  //     });
-  //     console.log(notification)
-  //   }, 10000); // 10 секунд
-  // };
-   
-  
-
-  // const requestNotificationPermission = async () => {
-  //   const permission = await Notification.requestPermission();
-  //   if (permission === 'granted') {
-  //     console.log('Разрешение на уведомления получено');
-  //     // Вызов функции для отправки уведомления
-  //     sendPushNotification();
-  //   }
-  // };
-
+  const [isLoaded, setIsLoaded] = useState(false);
+  console.log('1 isLoaded', isLoaded)
   useEffect(() => {
-    // Проверка поддержки Service Worker
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js').then((registration) => {
-        console.log('Service Worker registered:', registration);
+    const getNotificationPermission = () => {
+      // Запрашиваем разрешение на уведомления
+      Notification.requestPermission().then((permission) => {
+        if (permission === 'granted') {
+          console.log('Notification permission granted.');
+        } else {
+          console.log('Notification permission denied.');
+        }
       });
     }
 
-    // Запрашиваем разрешение на уведомления
-    Notification.requestPermission().then((permission) => {
-      if (permission === 'granted') {
-        console.log('Notification permission granted.');
-      } else {
-        console.log('Notification permission denied.');
+
+
+    const registerServiceWorker = async () => {
+      if ('serviceWorker' in navigator) {
+        try {
+          const registration = await navigator.serviceWorker.register('/sw.js');
+          console.log('Service Worker registered:', registration);
+          setIsLoaded(true); 
+        } catch (error) {
+          console.error('Service Worker registration failed:', error);
+        }
       }
-    });
-  }, []);
+
+    };
+    console.log('2 isLoaded', isLoaded)
+
+    if (!isLoaded) { 
+      console.log('3 isLoaded', isLoaded)
+      registerServiceWorker();
+      getNotificationPermission()
+    }
+
+  }, [isLoaded])
 
   const sendNotification = () => {
     new Notification('Push Notification 1', {
@@ -65,7 +56,7 @@ function App() {
       }
     }, 10000); // 10 секунд
   };
-  
+
 
   return (
     <>
@@ -74,8 +65,8 @@ function App() {
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
-        </button> 
-      </div> 
+        </button>
+      </div>
       <button onClick={sendNotification}>Получить push уведомление</button>
     </>
   )
