@@ -11,6 +11,11 @@ const App: FC = () => {
       Notification.requestPermission().then((permission) => {
         if (permission === 'granted') {
           console.log('Notification permission granted.');
+
+
+
+
+          setIsLoaded(true); // !!!!
         } else {
           console.log('Notification permission denied.');
         }
@@ -19,23 +24,23 @@ const App: FC = () => {
 
 
 
-    const registerServiceWorker = async () => {
-      if ('serviceWorker' in navigator) {
-        try {
-          const registration = await navigator.serviceWorker.register('/sw.js');
-          console.log('Service Worker registered:', registration);
-          setIsLoaded(true); 
-        } catch (error) {
-          console.error('Service Worker registration failed:', error);
-        }
-      }
+    // const registerServiceWorker = async () => {
+    //   if ('serviceWorker' in navigator) {
+    //     try {
+    //       const registration = await navigator.serviceWorker.register('/sw.js');
+    //       console.log('Service Worker registered:', registration);
+    //       setIsLoaded(true); 
+    //     } catch (error) {
+    //       console.error('Service Worker registration failed:', error);
+    //     }
+    //   }
 
-    };
+    // };
     console.log('2 isLoaded', isLoaded)
 
     if (!isLoaded) { 
       console.log('3 isLoaded', isLoaded)
-      registerServiceWorker();
+      // registerServiceWorker();
       getNotificationPermission()
     }
 
