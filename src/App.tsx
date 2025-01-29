@@ -1,14 +1,71 @@
-import { useState } from 'react' 
+import { useEffect, useState } from 'react' 
 import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
 
-  const handleClick = () => { 
+  // useEffect(() => {
+  //   const registerServiceWorker = async () => {
+  //     if ('serviceWorker' in navigator) {
+  //       await navigator.serviceWorker.register('/service-worker.js')
+  //       console.log('Service Worker registered');
+  //     }
+  //   };
+
+  //   registerServiceWorker();
+  // }, []);
+
+  // const triggerNotification = async () => {
+  //   if (Notification.permission === 'granted') {
+  //     // Уведомление через 10 секунд
+  //     setTimeout(async () => {
+  //       const registration = await navigator.serviceWorker.getRegistration();
+  
+  //       // Проверяем, существует ли registration
+  //       if (registration) {
+  //         registration.showNotification('Hello!', {
+  //           body: 'This is a push notification!',
+  //           icon: 'icons/icon-192x192.png',
+  //         });
+  //       } else {
+  //         console.error('Service Worker registration not found.');
+  //       }
+  //     }, 10000); // 10 секунд
+  //   } else if (Notification.permission !== 'denied') {
+  //     const permission = await Notification.requestPermission();
+  //     if (permission === 'granted') {
+  //       triggerNotification();
+  //     }
+  //   }
+  // };
+  
+
+  // const handleClick = () => { 
+  //   setTimeout(() => {
+  //     console.log('This is a message after 10 seconds!');
+  //   }, 10000); // 10000 milliseconds = 10 seconds
+  // };
+
+  const sendPushNotification = () => {
     setTimeout(() => {
-      console.log('This is a message after 10 seconds!');
-    }, 10000); // 10000 milliseconds = 10 seconds
+      const notification = new Notification('Привет!', {
+        body: 'Это ваше пуш-уведомление.',
+        icon: 'icons/icon-192x192.png', // Или другой путь к иконке
+      });
+    }, 10000); // 10 секунд
   };
+   
+  
+
+  const requestNotificationPermission = async () => {
+    const permission = await Notification.requestPermission();
+    if (permission === 'granted') {
+      console.log('Разрешение на уведомления получено');
+      // Вызов функции для отправки уведомления
+      sendPushNotification();
+    }
+  };
+  
 
   return (
     <>
@@ -19,7 +76,7 @@ function App() {
           count is {count}
         </button> 
       </div> 
-      <button onClick={handleClick}>Уведомление тест</button>
+      <button onClick={requestNotificationPermission}>Уведомление тест</button>
     </>
   )
 }

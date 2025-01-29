@@ -25,6 +25,10 @@ export default defineConfig({
     workbox: {
       globPatterns: ['**/*.{html,css,js,ico,png,svg}'],
     },
-    manifest: manifest
+    manifest: manifest, 
+    // Укажите путь к файлу service worker, если нужно
+    srcDir: 'src', // Каталог, где хранится ваш service worker
+    filename: 'sv.js', // Имя выходного файла
+    strategies: 'generateSW', // Или 'injectManifest' в зависимости от ваших нужд
   })],
 })
