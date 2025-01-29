@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react' 
+import { useState } from 'react' 
 import './App.css'
 
 function App() {
@@ -47,11 +47,12 @@ function App() {
   // };
 
   const sendPushNotification = () => {
-    setTimeout(() => {
+    setTimeout(() => { 
       const notification = new Notification('Привет!', {
         body: 'Это ваше пуш-уведомление.',
-        icon: 'icons/icon-192x192.png', // Или другой путь к иконке
+        icon: '/icon512_rounded.png',  
       });
+      console.log(notification)
     }, 10000); // 10 секунд
   };
    
