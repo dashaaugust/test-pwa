@@ -71,7 +71,7 @@ const App: FC = () => {
         .then((registration) => {
             const payload = {
                 title: 'Эмуляция уведомления',
-                body: 'Это тестовое пуш-уведомление',
+                body: `Это тестовое пуш-уведомление, текущий счёт: ${count}`,
             };
 
             registration.showNotification(payload.title, {
@@ -91,10 +91,10 @@ const App: FC = () => {
   return (
     <>
       <h1>Hello world!</h1>
-      <h3>Test PWA PUSH-уведомления 2</h3>
+      <h3>Test Magic PWA</h3>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+          Текущий счёт: {count}
         </button>
       </div>
       <button onClick={sendNotification}>Получить push уведомление</button>
