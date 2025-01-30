@@ -21,6 +21,7 @@ const manifest: Partial<ManifestOptions> | false = { "theme_color": "#388eff", "
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), VitePWA({
+    base: './',  
     registerType: 'autoUpdate',
     workbox: {
       globPatterns: ['**/*.{html,css,js,ico,png,svg}'],
@@ -28,7 +29,7 @@ export default defineConfig({
     manifest: manifest, 
     // Укажите путь к файлу service worker, если нужно
     srcDir: 'src', // Каталог, где хранится ваш service worker
-    filename: 'sv.js', // Имя выходного файла
-    strategies: 'generateSW', // Или 'injectManifest' в зависимости от ваших нужд
+    filename: 'sw.js', // Имя выходного файла
+    strategies: 'injectManifest', // Или 'injectManifest' в зависимости от ваших нужд generateSW
   })],
 })
