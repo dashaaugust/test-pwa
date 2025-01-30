@@ -66,7 +66,7 @@ const App: FC = () => {
   return (
     <>
       <h1>Hello world!</h1>
-      <h3>Test PWA PUSH-уведомления</h3>
+      <h3>Test PWA PUSH-уведомления 1</h3>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
