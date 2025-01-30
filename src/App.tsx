@@ -46,27 +46,52 @@ const App: FC = () => {
 
   }, [isLoaded])
 
-  const sendNotification = () => {
-    new Notification('Push Notification 1', {
-      body: 'Hello, this is a push notification!',
-      icon: '/icon512_rounded.png',
-    });
+  // const sendNotification = () => {
+  //   new Notification('Push Notification 1', {
+  //     body: 'Hello, this is a push notification!',
+  //     icon: '/icon512_rounded.png',
+  //   });
 
-    setTimeout(() => {
-      if (Notification.permission === 'granted') {
-        new Notification('Push Notification 2', {
-          body: 'Hello, this is a push notification!',
-          icon: '/icon512_rounded.png',
+  //   setTimeout(() => {
+  //     if (Notification.permission === 'granted') {
+  //       new Notification('Push Notification 2', {
+  //         body: 'Hello, this is a push notification!',
+  //         icon: '/icon512_rounded.png',
+  //       });
+  //     }
+  //   }, 10000); // 10 секунд
+  // };
+
+  function sendNotification() {
+    if (!('serviceWorker' in navigator)) {
+        return;
+    }
+    
+    navigator.serviceWorker.ready
+        .then((registration) => {
+            const payload = {
+                title: 'Эмуляция уведомления',
+                body: 'Это тестовое пуш-уведомление',
+            };
+
+            registration.showNotification(payload.title, {
+                body: payload.body,
+                icon: '/icon512_rounded.png',
+                badge: '/icon512_rounded.png',
+            });
+        })
+        .catch((error) => {
+            console.error('Ошибка:', error);
         });
-      }
-    }, 10000); // 10 секунд
-  };
+
+        console.log('sendNotification')
+}
 
 
   return (
     <>
       <h1>Hello world!</h1>
-      <h3>Test PWA PUSH-уведомления 1</h3>
+      <h3>Test PWA PUSH-уведомления 2</h3>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
