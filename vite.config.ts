@@ -26,7 +26,7 @@ export default defineConfig({
     base: './',
     registerType: 'autoUpdate',
     workbox: {
-      globPatterns: ['**/*.{html,css,js,ico,png,svg}'],
+      globPatterns: ['**/*.{html,css,js,ico,png,svg}'], // Указываем, какие ресурсы кэшировать
     },
     manifest: manifest, 
     srcDir: 'src', // Каталог, где хранится service worker
