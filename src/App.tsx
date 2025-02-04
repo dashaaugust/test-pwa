@@ -1,6 +1,18 @@
 import { FC, useEffect, useState } from 'react';
 import './App.css';
 
+interface CredentialOptions {
+  challenge: string; // Хеш (вызов), получаемый от сервера
+}
+
+interface PublicKeyCredentialCreationOptions1 extends PublicKeyCredentialCreationOptions {
+  user: {
+    id: Uint8Array;
+    name: string;
+    displayName: string;
+  };
+}
+
 const App: FC = () => {
   const [count, setCount] = useState(0);
 
@@ -44,6 +56,57 @@ const App: FC = () => {
     console.log('sendNotification');
   }
 
+  const getCredential = async ({ challenge }: CredentialOptions): Promise<PublicKeyCredential | null> => {
+    const userId = 'user@example.com'; // Пример ID пользователя, замените на реальный
+  
+    // Опции для создания публичного ключа.
+    const publicKeyCredentialCreationOptions: PublicKeyCredentialCreationOptions1 = {
+      rp: {
+        name: 'my super app', // имя надежной стороны (Relying Party)
+        id: 'webauthn.fancy-app.site', // идентификатор надежной стороны (Домен)
+      },
+      user: {
+        id: Uint8Array.from(userId, (c) => c.charCodeAt(0)), // преобразование userId в Uint8Array
+        name: 'User', // имя пользователя 
+        displayName: 'Full username', // отображаемое имя пользователя
+      },
+      challenge: Uint8Array.from(challenge, (c) => c.charCodeAt(0)), // преобразование challenge в Uint8Array
+      pubKeyCredParams: [
+        // предпочтительные параметры для криптографического алгоритма
+        {
+          type: 'public-key', // тип ключа
+          alg: -7, // алгоритм ECDSA с кривой P-256
+        },
+        {
+          type: 'public-key',
+          alg: -257, // алгоритм RSA с ограничением SHA-256
+        },
+      ],
+      timeout: 60000, // таймаут ожидания ответа (в миллисекундах)
+      excludeCredentials: [], // список учетных данных, которые следует исключить
+      authenticatorSelection: { // критерии выбора аутентификатора
+        residentKey: 'preferred',
+        requireResidentKey: false,
+        userVerification: 'required', // требование верификации пользователя
+      },
+      attestation: 'none', // тип аттестации, здесь не требуется
+      extensions: { // расширения
+        credProps: true, // если true, возвращаются свойства учетных данных
+      },
+    };
+  console.log('publicKeyCredentialCreationOptions', publicKeyCredentialCreationOptions)
+    // API вызов для создания новых учетных данных с помощью переданных опций.
+    try {
+      return await navigator.credentials.create({
+        publicKey: publicKeyCredentialCreationOptions,
+      }) as PublicKeyCredential; // Указание, что мы ожидаем тип PublicKeyCredential
+    } catch (error) {
+      console.error('Error creating credentials:', error);
+      return null;
+    }
+  };
+
+  const getCredential1 = () => getCredential({challenge : 'TEST LALA'})
   return (
     <>
       <h1>Hello world!</h1>
@@ -53,6 +116,7 @@ const App: FC = () => {
         <button onClick={() => setCount((count) => count + 1)}>Текущий счёт: {count}</button>
       </div>
       <button onClick={sendNotification}>Получить push уведомление</button>
+      <button onClick={getCredential1}>get</button>
     </>
   );
 };
