@@ -70,8 +70,8 @@ const App: FC = () => {
   }
 
   const getCredential1 = async () => {
-    const challenge = generateRandomBase64(32); // Генерируем вызов размером 32 байта
-    const credentialId = generateRandomBase64(16); // Генерируем идентификатор учетных данных размером 16 байт
+    const challenge = generateRandomBase64(32);  
+    const credentialId = generateRandomBase64(16);  
 
     const challengeFromServer = challenge; // Вызов с сервера
     const credentialIdFromServer = credentialId; // Идентификатор учетных данных с сервера
