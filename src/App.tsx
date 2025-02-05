@@ -150,7 +150,7 @@ const decodedCredentialId = base64ToUint8Array(credentialIdFromServer);
 
 const options = {
   challenge: decodedChallenge,
-  rpId: "example.com",
+  rpId: "leafy-selkie-39203b.netlify.app",
   allowCredentials: [{ type: "public-key", id: decodedCredentialId }],
   userVerification: "required",
   timeout: 60000,
@@ -171,7 +171,7 @@ navigator.credentials.get({ publicKey: options }).then((assertion) => {
         <button onClick={() => setCount((count) => count + 1)}>Текущий счёт: {count}</button>
       </div>
       <button onClick={sendNotification}>Получить push уведомление</button>
-      <button onClick={getCredential1}>get 3</button>
+      <button onClick={getCredential1}>get 4</button>
     </>
   );
 };
