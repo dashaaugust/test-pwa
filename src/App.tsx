@@ -1,4 +1,5 @@
 import { FC, useEffect, useState } from 'react';
+// import { PublicKeyCredentialRequestOptionsJSON } from '@types/webauthn';
 import './App.css';
 
 // interface CredentialOptions {
@@ -109,14 +110,33 @@ const App: FC = () => {
   const getCredential1 = async  () => {
 
    
-    const credentials = await navigator.credentials.get({
-      publicKey: {
-         // @ts-ignore 
-        challenge: "lalal"
-      },
-  });
+  //   const credentials = await navigator.credentials.get({
+  //     publicKey: {
+  //        // @ts-ignore 
+  //       challenge: "lalal"
+  //     },
+  // });
 
-  console.log('credentials0', credentials)
+  // console.log('credentials0', credentials)
+
+  const options = {
+    // @ts-ignore 
+    challenge: [1, 2, 3],
+    rpId: "example.com",
+    allowCredentials: [{
+      type: "public-key",
+      // @ts-ignore 
+      id:  [1, 2, 3],
+    }],
+    userVerification: "required",
+    timeout: 60000,
+  };
+  // @ts-ignore 
+  navigator.credentials.get({ publicKey: options }).then((assertion) => {
+    console.log('assertion', assertion)
+  }).catch((error) => {
+    console.log('error', error)
+  });
   }  
   return (
     <>
