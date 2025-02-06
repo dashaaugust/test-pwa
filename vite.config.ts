@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 import { ManifestOptions, VitePWA } from 'vite-plugin-pwa'
 
 const manifest: Partial<ManifestOptions> | false = {
-  "theme_color": "#388eff", "background_color": "#2EC6FE", "icons": [{ "purpose": "maskable", "sizes": "512x512", "src": "icon512_maskable.png", "type": "image/png" }, { "purpose": "any", "sizes": "512x512", "src": "icon512_rounded.png", "type": "image/png" }],
+  "theme_color": "#388eff", "background_color": "red", "icons": [{ "purpose": "maskable", "sizes": "512x512", "src": "icon512_maskable.png", "type": "image/png" }, { "purpose": "any", "sizes": "512x512", "src": "icon512_rounded.png", "type": "image/png" }],
   "screenshots": [{
     "src": '/screenshots/desktop.png',
     sizes: "1472x811",
