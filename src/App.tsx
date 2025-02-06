@@ -71,8 +71,8 @@ const App: FC = () => {
   }
 
   const getCredential1 = async () => {
-    const challenge = generateRandomBase64(32);  
-    const credentialId = generateRandomBase64(16);  
+    const challenge = generateRandomBase64(32);
+    const credentialId = generateRandomBase64(16);
 
     const challengeFromServer = challenge; // Вызов с сервера
     const credentialIdFromServer = credentialId; // Идентификатор учетных данных с сервера
@@ -82,14 +82,17 @@ const App: FC = () => {
 
     const options = {
       challenge: decodedChallenge,
-      rpId: 'leafy-selkie-39203b.netlify.app',
+      rpId: 'https://glittery-florentine-7f42c8.netlify.app/',
       allowCredentials: [{ type: 'public-key', id: decodedCredentialId }],
       userVerification: 'required',
       timeout: 60000,
     };
 
-    // @ts-ignore
-    navigator.credentials.get({ publicKey: options })
+    navigator.credentials
+      .get({
+        // @ts-ignore
+        publicKey: options,
+      })
       .then((assertion) => {
         console.log('assertion', assertion);
       })
@@ -101,17 +104,19 @@ const App: FC = () => {
   return (
     <>
       <h1>Hello world!</h1>
-      <h3>Test Magic PWA V2</h3>
+      <h3>Test Magic PWA V3</h3>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>Текущий счёт: {count}</button>
       </div>
       <button onClick={sendNotification}>Получить push уведомление</button>
       <div className="card">
-      <button onClick={getCredential1}>get biometry</button>
+        <button onClick={getCredential1}>get biometry</button>
       </div>
       <div className="card">
-      <PostComponent />
+        <PostComponent />
       </div>
+
+      <div className="card">Некоторый текст</div>
     </>
   );
 };
