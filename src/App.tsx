@@ -1,5 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 import './App.css';
+import PostComponent from './PostComponent';
 
 function generateRandomBase64(size: number): string {
   let result = '';
@@ -100,13 +101,17 @@ const App: FC = () => {
   return (
     <>
       <h1>Hello world!</h1>
-      <h3>Test Magic PWA</h3>
+      <h3>Test Magic PWA V2</h3>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>Текущий счёт: {count}</button>
       </div>
       <button onClick={sendNotification}>Получить push уведомление</button>
-      <br />
+      <div className="card">
       <button onClick={getCredential1}>get biometry</button>
+      </div>
+      <div className="card">
+      <PostComponent />
+      </div>
     </>
   );
 };
