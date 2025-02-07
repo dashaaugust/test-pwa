@@ -45,9 +45,24 @@ self.addEventListener('push', (event) => {
 });
 
  // Кэширование API запросов
- registerRoute( 
-  ({ request }) => request.url.includes('https://jsonplaceholder.typicode.com/posts/1'),
-  new StaleWhileRevalidate({
-    cacheName: 'api-cache',
-  })
-);
+//  registerRoute( 
+//   ({ request }) => request.url.includes('https://jsonplaceholder.typicode.com/posts/1'),
+//   new StaleWhileRevalidate({
+//     cacheName: 'api-cache',
+//   })
+// );
+
+const urlsToCache = [
+  'https://jsonplaceholder.typicode.com/posts/1',  
+  'https://jsonplaceholder.typicode.com/users', 
+];
+
+// Используем метод registerRoute для кэширования
+urlsToCache.forEach(url => {
+  registerRoute(
+    url,
+    new StaleWhileRevalidate({
+      cacheName: 'api-cache', // Кэш, в который будут сохраняться данные
+    })
+  );
+});
