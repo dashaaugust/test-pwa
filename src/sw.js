@@ -54,7 +54,7 @@ self.addEventListener('push', (event) => {
 
 const urlsToCache = [
   'https://jsonplaceholder.typicode.com/posts/1',  
-  'https://jsonplaceholder.typicode.com/users', 
+  'https://randomuser.me/api/', 
 ];
 
 // Используем метод registerRoute для кэширования

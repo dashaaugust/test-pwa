@@ -1,59 +1,54 @@
-// RandomUser.tsx
 import React, { useEffect, useState } from 'react';
-
-// Определяем интерфейс для пользователя
+ 
 interface User {
-  id: number;
-  name: string;
+  name: {
+    title: string;
+    first: string;
+    last: string;
+  };
   email: string;
-  // Вы можете добавить другие поля, если необходимо
+  picture: {
+    large: string;
+  };
 }
 
 const RandomUser: React.FC = () => {
-  const [user, setUser] = useState<User | null>(null); // Состояние для хранения случайного пользователя
-  const [loading, setLoading] = useState<boolean>(true); // Состояние загрузки
-  const [error, setError] = useState<string | null>(null); // Состояние для ошибок
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchRandomUser = async () => {
+  useEffect(() => { 
+    const fetchUser = async () => {
       try {
-        // Генерируем случайный ID от 1 до 10 (включительно)
-        const randomUserId = Math.floor(Math.random() * 10) + 1;
-        console.log('randomUserId', randomUserId)
-        // Получаем детали случайного пользователя
-        const response = await fetch(`https://jsonplaceholder.typicode.com/users/${randomUserId}`);
-
+        const response = await fetch('https://randomuser.me/api/');
         if (!response.ok) {
-          throw new Error('Unable to fetch random user');
+          throw new Error('Network response was not ok');
         }
-
-        const randomUser: User = await response.json();
-        setUser(randomUser); // Сохранение полученного случайного пользователя
+        const data = await response.json();
+        setUser(data.results[0]); 
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Unknown error'); // Установка сообщения об ошибке
+        setError('Failed to fetch user data');
       } finally {
-        setLoading(false); // Установка загрузки в false
+        setLoading(false);
       }
     };
+ 
+    fetchUser();
+  }, []);
 
-    fetchRandomUser(); // Вызов функции при монтировании компонента
-  }, []); // Пустой массив означает, что эффект сработает только при монтировании
-
-  // Отображение контента в зависимости от состояния
   if (loading) {
-    return <div>Loading...</div>; // Показываем загрузку
+    return <div>Loading...</div>;
   }
 
   if (error) {
-    return <div>Error: {error}</div>; // Показываем ошибку
+    return <div>{error}</div>;
   }
 
   return (
     <div>
-      <h1>Random User {user?.id}</h1>
-      <p>Name: {user?.name}</p>
+      <h1>{user?.name.title} {user?.name.first} {user?.name.last}</h1>
       <p>Email: {user?.email}</p>
-      {/* Вы можете добавить другие поля пользователя, если это необходимо */}
+      <img src={user?.picture.large} alt={`${user?.name.first} ${user?.name.last}`} />
     </div>
   );
 };
