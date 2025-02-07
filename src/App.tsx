@@ -2,6 +2,7 @@ import { FC, useEffect, useState } from 'react';
 import './App.css';
 import PostComponent from './PostComponent';
 import RandomUser from './RandomUser';
+import BitcoinPrice from './BitcoinPrice';
 
 function generateRandomBase64(size: number): string {
   let result = '';
@@ -119,7 +120,7 @@ const App: FC = () => {
         <RandomUser />
       </div>
 
-      <div className="card">текст</div>
+      <BitcoinPrice />
     </>
   );
 };
