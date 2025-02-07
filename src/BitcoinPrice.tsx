@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
- 
+
 interface BitcoinPrice {
-  USD: number;  
-  EUR: number;  
+  USD: number;
+  EUR: number;
 }
 
 const BitcoinPrice: React.FC = () => {

@@ -7,7 +7,7 @@ interface Post {
   body: string;
 }
 
-const PostComponent: React.FC<{ id: number }> = ({ id })=> {
+const PostComponent: React.FC<{ id: number }> = ({ id }) => {
   const [post, setPost] = useState<Post | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
- 
+
 interface User {
   name: {
     title: string;
@@ -13,12 +13,12 @@ interface User {
 }
 
 const RandomUser: React.FC = () => {
-  const isReady = useRef(false)
+  const isReady = useRef(false);
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => { 
+  useEffect(() => {
     const fetchUser = async () => {
       try {
         const response = await fetch('https://randomuser.me/api/');
@@ -26,7 +26,7 @@ const RandomUser: React.FC = () => {
           throw new Error('Network response was not ok');
         }
         const data = await response.json();
-        setUser(data.results[0]); 
+        setUser(data.results[0]);
       } catch (err) {
         setError('Failed to fetch user data');
       } finally {
@@ -50,7 +50,9 @@ const RandomUser: React.FC = () => {
 
   return (
     <div>
-      <h1>{user?.name.title} {user?.name.first} {user?.name.last}</h1>
+      <h1>
+        {user?.name.title} {user?.name.first} {user?.name.last}
+      </h1>
       <p>Email: {user?.email}</p>
       <img src={user?.picture.large} alt={`${user?.name.first} ${user?.name.last}`} />
     </div>

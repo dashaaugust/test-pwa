@@ -44,8 +44,8 @@ self.addEventListener('push', (event) => {
   event.waitUntil(self.registration.showNotification(data.title || 'Push Notification', options));
 });
 
- // Кэширование API запросов
-//  registerRoute( 
+// Кэширование API запросов
+//  registerRoute(
 //   ({ request }) => request.url.includes('https://jsonplaceholder.typicode.com/posts/1'),
 //   new StaleWhileRevalidate({
 //     cacheName: 'api-cache',
@@ -53,16 +53,17 @@ self.addEventListener('push', (event) => {
 // );
 
 const urlsToCache = [
-  'https://jsonplaceholder.typicode.com/posts/1',  
-  'https://randomuser.me/api/', 
+  'https://jsonplaceholder.typicode.com/posts/1',
+  'https://randomuser.me/api/',
+  'https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD,EUR',
 ];
 
 // Используем метод registerRoute для кэширования
-urlsToCache.forEach(url => {
+urlsToCache.forEach((url) => {
   registerRoute(
     url,
     new StaleWhileRevalidate({
       cacheName: 'api-cache', // Кэш, в который будут сохраняться данные
-    })
+    }),
   );
 });
