@@ -104,12 +104,13 @@ const App: FC = () => {
   };
 
   return (
-    <>
-      <h1>Hello world!</h1>
+    <> 
       <h3>Test Magic PWA V13</h3>
+      <BitcoinPrice />
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>Текущий счёт: {count}</button>
       </div>
+      
       <button onClick={sendNotification}>Получить push уведомление</button>
       <div className="card">
         <button onClick={getCredential1}>get biometry</button>
@@ -117,10 +118,10 @@ const App: FC = () => {
       <div className="card">
         <PostComponent id={1} />
         <PostComponent id={2} />
-        <RandomUser />
+        {/* <RandomUser /> */}
       </div>
 
-      <BitcoinPrice />
+      
     </>
   );
 };

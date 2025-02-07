@@ -50,9 +50,9 @@ const RandomUser: React.FC = () => {
 
   return (
     <div>
-      <h1>
+      <h3>
         {user?.name.title} {user?.name.first} {user?.name.last}
-      </h1>
+      </h3>
       <p>Email: {user?.email}</p>
       <img src={user?.picture.large} alt={`${user?.name.first} ${user?.name.last}`} />
     </div>

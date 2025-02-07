@@ -39,7 +39,7 @@ const BitcoinPrice: React.FC = () => {
 
   return (
     <div>
-      <h1>Текущий курс биткоина</h1>
+      <h2>Текущий курс биткоина</h2>
       <p>Цена в USD: ${priceData?.USD.toFixed(2)}</p>
       <p>Цена в EUR: €{priceData?.EUR.toFixed(2)}</p>
     </div>
