@@ -105,7 +105,7 @@ const App: FC = () => {
   return (
     <>
       <h1>Hello world!</h1>
-      <h3>Test Magic PWA V12</h3>
+      <h3>Test Magic PWA V13</h3>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>Текущий счёт: {count}</button>
       </div>

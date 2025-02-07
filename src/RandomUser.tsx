@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
  
 interface User {
   name: {
@@ -13,6 +13,7 @@ interface User {
 }
 
 const RandomUser: React.FC = () => {
+  const isReady = useRef(false)
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -32,9 +33,12 @@ const RandomUser: React.FC = () => {
         setLoading(false);
       }
     };
- 
-    fetchUser();
-  }, []);
+
+    if (!isReady.current) {
+      fetchUser();
+      isReady.current = true;
+    }
+  }, [isReady]);
 
   if (loading) {
     return <div>Loading...</div>;
