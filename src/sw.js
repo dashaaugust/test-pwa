@@ -3,6 +3,8 @@ self.__WB_MANIFEST;
 
 // Импортируйте необходимые функции Workbox
 import { precacheAndRoute } from 'workbox-precaching';
+import { registerRoute } from 'workbox-routing';
+import { StaleWhileRevalidate } from 'workbox-strategies';
 
 // Обработчик события установки сервисного рабочего процесса
 self.addEventListener('install', (event) => {
@@ -41,3 +43,11 @@ self.addEventListener('push', (event) => {
 
   event.waitUntil(self.registration.showNotification(data.title || 'Push Notification', options));
 });
+
+ // Кэширование API запросов
+ registerRoute( 
+  ({ request }) => request.url.includes('https://jsonplaceholder.typicode.com/posts/1'),
+  new StaleWhileRevalidate({
+    cacheName: 'api-cache',
+  })
+);
