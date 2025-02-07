@@ -7,7 +7,7 @@ interface Post {
   body: string;
 }
 
-const PostComponent: React.FC = () => {
+const PostComponent: React.FC<{ id: number }> = ({ id })=> {
   const [post, setPost] = useState<Post | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -15,7 +15,7 @@ const PostComponent: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://jsonplaceholder.typicode.com/posts/1');
+        const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`);
 
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -45,6 +45,7 @@ const PostComponent: React.FC = () => {
     <div>
       {/* <h2>{post?.title}</h2>
       <p>{post?.body}</p> */}
+      <p>PostComponent ID: {id}</p>
       <p>User ID: {post?.userId}</p>
       <p>Post ID: {post?.id}</p>
     </div>

@@ -104,7 +104,7 @@ const App: FC = () => {
   return (
     <>
       <h1>Hello world!</h1>
-      <h3>Test Magic PWA V9</h3>
+      <h3>Test Magic PWA V10</h3>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>Текущий счёт: {count}</button>
       </div>
@@ -113,10 +113,11 @@ const App: FC = () => {
         <button onClick={getCredential1}>get biometry</button>
       </div>
       <div className="card">
-        <PostComponent />
+        <PostComponent id={1} />
+        <PostComponent id={2} />
       </div>
 
-      <div className="card">Некоторый текст</div>
+      <div className="card">текст</div>
     </>
   );
 };
