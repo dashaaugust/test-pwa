@@ -1,11 +1,6 @@
 import React, { useState } from 'react';
 import { Buffer } from 'buffer';
-
-interface User {
-  id: string;
-  name: string;
-  credentialId: string;
-}
+import { User } from './RegistrationForm';
 
 const AuthenticationForm: React.FC = () => {
   const [username, setUsername] = useState('');
@@ -35,18 +30,20 @@ const AuthenticationForm: React.FC = () => {
       // Параметры для проверки учетных данных
       const publicKey: any = {
         challenge: new Uint8Array(Buffer.from(generateChallenge(), 'hex')),
-        allowCredentials: [{
-          type: 'public-key',
-          id: new Uint8Array(Buffer.from(user.credentialId, 'base64'))
-        }]
+        allowCredentials: [
+          {
+            type: 'public-key',
+            id: new Uint8Array(Buffer.from(user.credentialId, 'base64')),
+          },
+        ],
       };
 
-      // Вызываем метод navigator.credentials.get()
       const assertion = await navigator.credentials.get({ publicKey });
 
       if (assertion) {
-        // В реальных приложениях здесь должна происходить проверка ответа от сервера
-        // Но так как у нас нет сервера, просто считаем, что проверка успешная
+        console.log('assertion', assertion)
+        // здесь должна происходить проверка ответа от сервера
+        // нет сервера, просто считаем, что проверка успешная
         setAuthenticationSuccess(true);
         alert('Авторизация прошла успешно!');
       } else {
@@ -65,28 +62,17 @@ const AuthenticationForm: React.FC = () => {
         <>
           <label htmlFor="username">
             Имя пользователя:
-            <input
-              type="text"
-              id="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
+            <input type="text" id="username" value={username} onChange={(e) => setUsername(e.target.value)} required />
           </label>
           <br />
           <button type="submit">Авторизоваться</button>
         </>
       )}
-      {authenticationSuccess && (
-        <p>Вы успешно авторизованы!</p>
-      )}
+      {authenticationSuccess && <p>Вы успешно авторизованы!</p>}
     </form>
   );
 };
 
-// Вспомогательные функции
-
-// Генерация случайного вызова
 function generateChallenge() {
   return crypto.randomUUID().replace(/-/g, '');
 }

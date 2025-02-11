@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Buffer } from 'buffer';
 
-interface User {
+export interface User {
   id: string;
   name: string;
   credentialId: string;
@@ -20,36 +20,36 @@ const RegistrationForm: React.FC = () => {
     }
 
     try {
-      // Генерируем уникальный ID для пользователя
+      // ID для пользователя
       const userId = generateRandomString();
 
-      // Параметры для создания учетных данных
+      // Учетные данные
       const publicKey: any = {
         challenge: new Uint8Array(Buffer.from(generateChallenge(), 'hex')),
         rp: {
-          name: 'Example RP'
+          name: 'Example RP',
         },
         user: {
           id: new Uint8Array(Buffer.from(userId, 'utf-8')),
           displayName: username,
-          name: username
+          name: username,
         },
-        pubKeyCredParams: [{
-          type: 'public-key',
-          alg: -7 // ECDSA w/ SHA-256
-        }],
+        pubKeyCredParams: [
+          {
+            type: 'public-key',
+            alg: -7, // ECDSA w/ SHA-256
+          },
+        ],
         attestation: 'none',
         authenticatorSelection: {
           requireResidentKey: false,
-          userVerification: 'required'
+          userVerification: 'required',
         },
-        timeout: 60000
+        timeout: 60000,
       };
 
-      // Вызываем метод navigator.credentials.create()
       const credential = await navigator.credentials.create({ publicKey });
 
-      // Сохраняем информацию о пользователе и его ключе в localStorage
       // @ts-ignore
       saveUserData(userId, username, credential.id);
 
@@ -68,21 +68,13 @@ const RegistrationForm: React.FC = () => {
         <>
           <label htmlFor="username">
             Имя пользователя:
-            <input
-              type="text"
-              id="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
+            <input type="text" id="username" value={username} onChange={(e) => setUsername(e.target.value)} required />
           </label>
           <br />
           <button type="submit">Зарегистрироваться</button>
         </>
       )}
-      {registrationSuccess && (
-        <p>Вы успешно зарегистрированы!</p>
-      )}
+      {registrationSuccess && <p>Вы успешно зарегистрированы!</p>}
     </form>
   );
 };
@@ -110,7 +102,7 @@ function saveUserData(userId: string, name: string, credentialId: string) {
   const user: User = {
     id: userId,
     name,
-    credentialId
+    credentialId,
   };
   localStorage.setItem('webauthn_user_' + userId, JSON.stringify(user));
 }
