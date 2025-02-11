@@ -3,6 +3,8 @@ import './App.css';
 import PostComponent from './PostComponent';
 import RandomUser from './RandomUser';
 import BitcoinPrice from './BitcoinPrice';
+import RegistrationForm from './RegistrationForm';
+import AuthenticationForm from './AuthenticationForm';
 
 function generateRandomBase64(size: number): string {
   let result = '';
@@ -106,6 +108,8 @@ const App: FC = () => {
   return (
     <> 
       <h3>Test Magic PWA V13</h3>
+      <RegistrationForm />
+      <AuthenticationForm />
       <BitcoinPrice />
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>Текущий счёт: {count}</button>
