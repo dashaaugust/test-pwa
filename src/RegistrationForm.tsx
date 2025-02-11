@@ -50,6 +50,7 @@ const RegistrationForm: React.FC = () => {
       const credential = await navigator.credentials.create({ publicKey });
 
       // Сохраняем информацию о пользователе и его ключе в localStorage
+      // @ts-ignore
       saveUserData(userId, username, credential.id);
 
       setRegistrationSuccess(true);
