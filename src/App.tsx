@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 import './App.css';
-import PostComponent from './PostComponent';
+// import PostComponent from './PostComponent';
 import BitcoinPrice from './BitcoinPrice';
 import RegistrationForm from './RegistrationForm';
 import AuthenticationForm from './AuthenticationForm';
