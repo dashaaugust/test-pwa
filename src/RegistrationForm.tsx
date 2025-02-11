@@ -49,7 +49,7 @@ const RegistrationForm: React.FC = () => {
       };
 
       const credential = await navigator.credentials.create({ publicKey });
-      console.log('credential1', credential)
+      console.log('credential1', credential);
       // @ts-ignore
       saveUserData(userId, username, credential.id);
 
