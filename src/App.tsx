@@ -63,10 +63,10 @@ const App: FC = () => {
 
       <button onClick={sendNotification}>Получить push уведомление</button>
 
-      <div className="card">
+      {/* <div className="card">
         <PostComponent id={1} />
         <PostComponent id={2} />
-      </div>
+      </div> */}
     </>
   );
 };

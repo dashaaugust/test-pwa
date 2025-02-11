@@ -41,9 +41,9 @@ const AuthenticationForm: React.FC = () => {
       const assertion = await navigator.credentials.get({ publicKey });
 
       if (assertion) {
-        console.log('assertion', assertion);
+        console.log('assertion2', assertion);
         // здесь должна происходить проверка ответа от сервера
-        // нет сервера, просто считаем, что проверка успешная
+        // нет сервера, считаем, что проверка успешная
         setAuthenticationSuccess(true);
         alert('Авторизация прошла успешно!');
       } else {
