@@ -7,6 +7,30 @@ export interface User {
   credentialId: string;
 }
 
+function generateRandomString(length = 32) {
+  let result = '';
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const charactersLength = characters.length;
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}
+
+// Генерация challenge
+function generateChallenge() {
+  return crypto.randomUUID().replace(/-/g, '');
+}
+
+function saveUserData(userId: string, name: string, credentialId: string) {
+  const user: User = {
+    id: userId,
+    name,
+    credentialId,
+  };
+  localStorage.setItem('webauthn_user_' + userId, JSON.stringify(user));
+}
+
 const RegistrationForm: React.FC = () => {
   const [username, setUsername] = useState('');
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
@@ -23,7 +47,7 @@ const RegistrationForm: React.FC = () => {
       // ID для пользователя
       const userId = generateRandomString();
 
-      // Учетные данные
+      // Учетные данные (challenge - хеш (вызов) который получаем от сервера, вместо generateChallenge())
       const publicKey: any = {
         challenge: new Uint8Array(Buffer.from(generateChallenge(), 'hex')),
         rp: {
@@ -78,33 +102,5 @@ const RegistrationForm: React.FC = () => {
     </form>
   );
 };
-
-// Вспомогательные функции
-
-// Генерация случайной строки
-function generateRandomString(length = 32) {
-  let result = '';
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  const charactersLength = characters.length;
-  for (let i = 0; i < length; i++) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-  }
-  return result;
-}
-
-// Генерация случайного вызова
-function generateChallenge() {
-  return crypto.randomUUID().replace(/-/g, '');
-}
-
-// Сохранение информации о пользователе в localStorage
-function saveUserData(userId: string, name: string, credentialId: string) {
-  const user: User = {
-    id: userId,
-    name,
-    credentialId,
-  };
-  localStorage.setItem('webauthn_user_' + userId, JSON.stringify(user));
-}
 
 export default RegistrationForm;
