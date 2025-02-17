@@ -42,5 +42,23 @@
 }
 
 .card2 {
-  background-color: aquamarine;
+  border: 1px solid rgb(144, 144, 144);
+  border-radius: 24px;
+  margin-bottom: 20px;
+  padding: 20px;
+}
+
+input {
+  height: 24px;
+  border: none;
+  border-bottom: 1px solid rgb(77, 77, 77);
+  background: transparent;
+}
+
+button {
+  background-color: rgb(171, 255, 242);
+
+  &:hover {
+    background-color: rgb(33, 122, 255);
+  }
 }

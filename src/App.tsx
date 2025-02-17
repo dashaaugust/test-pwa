@@ -52,16 +52,19 @@ const App: FC = () => {
     <>
       <h3>Test Magic PWA</h3>
       <div className="card2">
-        <h4>Фронтовый симулятор биометрии</h4>
+        <h4>Биометрия</h4>
         <RegistrationForm />
         <AuthenticationForm />
       </div>
-      <BitcoinPrice />
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>Текущий счёт: {count}</button>
+      <div className="card2">
+        <BitcoinPrice />
       </div>
-
-      <button onClick={sendNotification}>Получить push уведомление</button>
+      <div className="card2">
+        <button onClick={() => setCount((count) => count + 1)}>Текущий счёт: {count}</button>
+        <br />
+        <br />
+        <button onClick={sendNotification}>Получить push уведомление</button>
+      </div>
 
       {/* <div className="card">
         <PostComponent id={1} />
